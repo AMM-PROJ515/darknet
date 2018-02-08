@@ -162,6 +162,8 @@ void draw_label(image a, int r, int c, image label, const float *rgb)
     }
 }
 
+    char coordinates[250];
+
 void draw_box(image a, int x1, int y1, int x2, int y2, float r, float g, float b, char *label)
 {
     //normalize_image(a);
@@ -198,10 +200,10 @@ void draw_box(image a, int x1, int y1, int x2, int y2, float r, float g, float b
     }
 
  //Print out CofM (Toms code)
-    printf("post: x1: %d x2: %d y1: %d y2: %d\n", x1, x2, y1, y2);
+   // printf("post: x1: %d x2: %d y1: %d y2: %d\n", x1, x2, y1, y2);
     float xc = (x2 - x1)/2 + x1;
     float yc = (y2 - y1)/2 + y1;
-    printf("x = %f y = %f\n", xc, yc);
+    //printf("x = %f y = %f\n", xc, yc);
 
     a.data[(int)yc*a.w + (int)xc + 0*a.w*a.h] = 254;
     a.data[(int)yc*a.w + (int)xc + 0*a.w*a.h + 1] = 254;
@@ -218,6 +220,10 @@ void draw_box(image a, int x1, int y1, int x2, int y2, float r, float g, float b
     a.data[(int)(yc + 1)*a.w + (int)xc + 1*a.w*a.h] = 254;
     a.data[(int)(yc - 1)*a.w + (int)xc + 1*a.w*a.h] = 254;
     a.data[(int)(yc)*a.w + (int)xc + 1*a.w*a.h] = 254;
+
+    sprintf(coordinates, "%s x= %f y= %f\n", label, xc, yc);
+    printf("%s", coordinates);   
+// send(sock , coordinates , strlen(coordinates) , 0 );
 //End of Toms Code
 
 }
@@ -312,7 +318,7 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
             if(right > im.w-1) right = im.w-1;
             if(top < 0) top = 0;
             if(bot > im.h-1) bot = im.h-1;
-            printf("thisone%s", labelstr);
+            //printf("thisone%s", labelstr);
             draw_box_width(im, left, top, right, bot, width, red, green, blue, labelstr);
             if (alphabet) {
                 image label = get_label(alphabet, labelstr, (im.h*.03)/10);
