@@ -676,7 +676,7 @@ void test_resize(char *filename);
 void save_image(image p, const char *name);
 void show_image(image p, const char *name);
 image copy_image(image p);
-void draw_box_width(image a, int x1, int y1, int x2, int y2, int w, float r, float g, float b);
+void draw_box_width(image a, int x1, int y1, int x2, int y2, int w, float r, float g, float b, char *label);
 float get_current_rate(network *net);
 void composite_3d(char *f1, char *f2, char *out, int delta);
 data load_data_old(char **paths, int n, int m, char **labels, int k, int w, int h);
