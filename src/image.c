@@ -196,6 +196,30 @@ void draw_box(image a, int x1, int y1, int x2, int y2, float r, float g, float b
         a.data[x1 + i*a.w + 2*a.w*a.h] = b;
         a.data[x2 + i*a.w + 2*a.w*a.h] = b;
     }
+
+ //Print out CofM (Toms code)
+    printf("post: x1: %d x2: %d y1: %d y2: %d\n", x1, x2, y1, y2);
+    float xc = (x2 - x1)/2 + x1;
+    float yc = (y2 - y1)/2 + y1;
+    printf("x = %f y = %f\n", xc, yc);
+
+    a.data[(int)yc*a.w + (int)xc + 0*a.w*a.h] = 254;
+    a.data[(int)yc*a.w + (int)xc + 0*a.w*a.h + 1] = 254;
+    a.data[(int)yc*a.w + (int)xc + 0*a.w*a.h - 1] = 254;
+
+    a.data[(int)(yc + 1)*a.w + (int)xc + 0*a.w*a.h] = 254;
+    a.data[(int)(yc - 1)*a.w + (int)xc + 0*a.w*a.h] = 254;
+    a.data[(int)(yc)*a.w + (int)xc + 0*a.w*a.h] = 254;
+
+    a.data[(int)yc*a.w + (int)xc + 1*a.w*a.h] = 254;
+    a.data[(int)yc*a.w + (int)xc + 1*a.w*a.h + 1] = 254;
+    a.data[(int)yc*a.w + (int)xc + 1*a.w*a.h - 1] = 254;
+
+    a.data[(int)(yc + 1)*a.w + (int)xc + 1*a.w*a.h] = 254;
+    a.data[(int)(yc - 1)*a.w + (int)xc + 1*a.w*a.h] = 254;
+    a.data[(int)(yc)*a.w + (int)xc + 1*a.w*a.h] = 254;
+//End of Toms Code
+
 }
 
 void draw_box_width(image a, int x1, int y1, int x2, int y2, int w, float r, float g, float b)
