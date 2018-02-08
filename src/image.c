@@ -162,7 +162,7 @@ void draw_label(image a, int r, int c, image label, const float *rgb)
     }
 }
 
-void draw_box(image a, int x1, int y1, int x2, int y2, float r, float g, float b)
+void draw_box(image a, int x1, int y1, int x2, int y2, float r, float g, float b, char *label)
 {
     //normalize_image(a);
     int i;
@@ -222,16 +222,17 @@ void draw_box(image a, int x1, int y1, int x2, int y2, float r, float g, float b
 
 }
 
-void draw_box_width(image a, int x1, int y1, int x2, int y2, int w, float r, float g, float b)
+void draw_box_width(image a, int x1, int y1, int x2, int y2, int w, float r, float g, float b, char *label)
 {
     int i;
     for(i = 0; i < w; ++i){
-        draw_box(a, x1+i, y1+i, x2-i, y2-i, r, g, b);
+        draw_box(a, x1+i, y1+i, x2-i, y2-i, r, g, b, label);
     }
 }
 
 void draw_bbox(image a, box bbox, int w, float r, float g, float b)
 {
+    char errorStr[250] = "You should never see this";
     int left  = (bbox.x-bbox.w/2)*a.w;
     int right = (bbox.x+bbox.w/2)*a.w;
     int top   = (bbox.y-bbox.h/2)*a.h;
@@ -239,7 +240,7 @@ void draw_bbox(image a, box bbox, int w, float r, float g, float b)
 
     int i;
     for(i = 0; i < w; ++i){
-        draw_box(a, left+i, top+i, right-i, bot-i, r, g, b);
+        draw_box(a, left+i, top+i, right-i, bot-i, r, g, b, errorStr);
     }
 }
 
@@ -311,8 +312,8 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
             if(right > im.w-1) right = im.w-1;
             if(top < 0) top = 0;
             if(bot > im.h-1) bot = im.h-1;
-
-            draw_box_width(im, left, top, right, bot, width, red, green, blue);
+            printf("thisone%s", labelstr);
+            draw_box_width(im, left, top, right, bot, width, red, green, blue, lablestr);
             if (alphabet) {
                 image label = get_label(alphabet, labelstr, (im.h*.03)/10);
                 draw_label(im, top + width, left, label, rgb);
