@@ -774,36 +774,36 @@ void threat_classifier(char *datacfg, char *cfgfile, char *weightfile, int cam_i
                 predictions[370];
         }
         threat = roll * curr_threat + (1-roll) * threat;
-
-        draw_box_width(out, x2 + border, y1 + .02*h, x2 + .5 * w, y1 + .02*h + border, border, 0,0,0);
+        char str[200] = "Dummy text";
+        draw_box_width(out, x2 + border, y1 + .02*h, x2 + .5 * w, y1 + .02*h + border, border, 0,0,0, str);
         if(threat > .97) {
             draw_box_width(out,  x2 + .5 * w + border,
                     y1 + .02*h - 2*border, 
                     x2 + .5 * w + 6*border, 
-                    y1 + .02*h + 3*border, 3*border, 1,0,0);
+                    y1 + .02*h + 3*border, 3*border, 1,0,0, str);
         }
         draw_box_width(out,  x2 + .5 * w + border,
                 y1 + .02*h - 2*border, 
                 x2 + .5 * w + 6*border, 
-                y1 + .02*h + 3*border, .5*border, 0,0,0);
-        draw_box_width(out, x2 + border, y1 + .42*h, x2 + .5 * w, y1 + .42*h + border, border, 0,0,0);
+                y1 + .02*h + 3*border, .5*border, 0,0,0, str);
+        draw_box_width(out, x2 + border, y1 + .42*h, x2 + .5 * w, y1 + .42*h + border, border, 0,0,0, str);
         if(threat > .57) {
             draw_box_width(out,  x2 + .5 * w + border,
                     y1 + .42*h - 2*border, 
                     x2 + .5 * w + 6*border, 
-                    y1 + .42*h + 3*border, 3*border, 1,1,0);
+                    y1 + .42*h + 3*border, 3*border, 1,1,0, str);
         }
         draw_box_width(out,  x2 + .5 * w + border,
                 y1 + .42*h - 2*border, 
                 x2 + .5 * w + 6*border, 
-                y1 + .42*h + 3*border, .5*border, 0,0,0);
+                y1 + .42*h + 3*border, .5*border, 0,0,0, str);
 
-        draw_box_width(out, x1, y1, x2, y2, border, 0,0,0);
+        draw_box_width(out, x1, y1, x2, y2, border, 0,0,0, str);
         for(i = 0; i < threat * h ; ++i){
             float ratio = (float) i / h;
             float r = (ratio < .5) ? (2*(ratio)) : 1;
             float g = (ratio < .5) ? 1 : 1 - 2*(ratio - .5);
-            draw_box_width(out, x1 + border, y2 - border - i, x2 - border, y2 - border - i, 1, r, g, 0);
+            draw_box_width(out, x1 + border, y2 - border - i, x2 - border, y2 - border - i, 1, r, g, 0, str);
         }
         top_predictions(net, top, indexes);
         char buff[256];
